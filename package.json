@@ -1,0 +1,22 @@
+{
+  "name": "fforce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shabazfarooq/FForce.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shabazfarooq/FForce/issues"
+  },
+  "homepage": "https://github.com/shabazfarooq/FForce#readme",
+  "dependencies": {
+    "npm": "^6.4.1"
+  }
+}

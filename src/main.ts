@@ -3,14 +3,14 @@
  *  - create logger class
  *  - create exceptions class
  *  - create message center, where all message text would be written perhaps??
- *
+ *  - have commands be constants, actually enumerated types!! haha
  *  - // TBD: Implement pretty errors in options.ts
  */
 
 /**
  * Require
  */
-const command_init = require('./commands/init');
+const execute_init = require('./commands/init');
 const options = require('./utilities/options');
 
 /**
@@ -29,15 +29,13 @@ const optionDefinitions = [
 options.register(optionDefinitions);
 const parsedOptions = options.getOptions();
 
-console.log(
-  'here' + 
-  JSON.stringify(parsedOptions, null, 2)
-);
+/**
+ * Call command
+ */
+if (parsedOptions.hasOwnProperty('init')) {
+  execute_init();
+}
 
-// console.log('__filename: ' + __filename);
-// console.log('__dirname : ' + __dirname);
-// console.log('process.argv : ' + process.argv);
-
-// function opposite(x={hello:{world:'hi'}}){
-//   return x.hello.world;
-// }
+// console.log(
+//   JSON.stringify(parsedOptions, null, 2)
+// );

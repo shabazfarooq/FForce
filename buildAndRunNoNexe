@@ -4,4 +4,4 @@ echo 'tsc complete'
 echo 'running app:'
 echo ''
 echo ''
-node dist/main.js --init --src
+node dist/main.js --init

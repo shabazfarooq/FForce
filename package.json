@@ -18,6 +18,7 @@
   "homepage": "https://github.com/shabazfarooq/FForce#readme",
   "dependencies": {
     "@types/node": "^10.11.7",
+    "command-line-args": "^5.0.2",
     "npm": "^6.4.1"
   }
 }

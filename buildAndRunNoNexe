@@ -1,5 +1,7 @@
 rm -rf dist/*
 tsc
 echo 'tsc complete'
+echo 'running app:'
 echo ''
-node dist/main.js --init
+echo ''
+node dist/main.js --init --src

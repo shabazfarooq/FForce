@@ -5,12 +5,11 @@
         "outDir": "dist",
         "sourceMap": true,
         "rootDir": "src",
-
         "experimentalDecorators": true,
         "noEmitOnError": true,
         "noImplicitAny": true,
-        "removeComments": false
-
+        "removeComments": false,
+        "lib": ["es2015"]
     },
     "exclude": [
         "build",

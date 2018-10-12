@@ -1,4 +1,5 @@
-tsc src/* --outDir dist/
+rm -rf dist/*
+tsc
 echo 'tsc complete'
 echo ''
 node dist/main.js --init

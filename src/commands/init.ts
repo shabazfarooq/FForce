@@ -13,7 +13,7 @@
  */
 const Command = require('./Command');
 const userInput = require('../utilities/userInput');
-const jsforce = require('jsforce');
+const jsforceUtilities = require('../utilities/jsforceUtilities');
 const fs = require('fs');
 
 
@@ -30,7 +30,11 @@ module.exports = class Init extends Command {
    */
   async start() {
     this.captureSetValidateCredentials();
-    let authenticatedCredentials = await this.getAuthenticatedCredentials();
+    let authenticatedCredentials = await jsforceUtilities.getAuthenticatedCredentials(
+      this._username,
+      this._password,
+      this._instanceType
+    );
 
     if (authenticatedCredentials) {
           const textToWrite = `org = src
@@ -64,38 +68,6 @@ sf.maxPoll = 20`;
       console.log('Missing username/password/instance type');
       process.exit(1);
     }
-  }
-
-  /**
-   * Authenticate credentials with SFDC
-   // Now you can get the access token and instance URL information.
-   // Save them to establish connection next time.
-   // console.log(conn.accessToken);
-   // console.log(conn.instanceUrl);
-   // // logged in user property
-   // console.log("User ID: " + userInfo.id);
-   // console.log("Org ID: " + userInfo.organizationId);
-   // ...
-   */
-  getAuthenticatedCredentials() {
-    const conn = new jsforce.Connection({ loginUrl: this._instanceType });
-    
-    return new Promise((resolve, reject) => {
-      conn.login(this._username, this._password,
-        (error: string, userInfo: any) => {
-          if (error) {
-            console.error('ERROR: ' + JSON.stringify(error));
-            process.exit(1);
-          }
-
-          if (userInfo && userInfo.id) {
-            resolve(userInfo);
-          }
-          else {
-            reject(error);
-          }
-        })
-    });
   }
 
   /**

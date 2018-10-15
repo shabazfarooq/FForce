@@ -4,6 +4,7 @@
 interface CommandInterface {
   _options: object;
   start(): void;
+  hasOption(optionName: string): boolean;
 }
 
 module.exports = class Command implements CommandInterface {
@@ -18,4 +19,8 @@ module.exports = class Command implements CommandInterface {
   }
 
   start(): void{}
+
+  hasOption(optionName: string): boolean {
+    return this._options.hasOwnProperty(optionName);
+  }
 }

@@ -12,6 +12,7 @@
  */
 const options = require('./utilities/options');
 const execute_init = require('./commands/init');
+const execute_create = require('./commands/create');
 
 /**
  * Define options
@@ -19,6 +20,7 @@ const execute_init = require('./commands/init');
 const optionDefinitions = [
   { name: 'init', alias: 'i', type: Number },
   { name: 'showpassword', alias: 's', type: Boolean },
+  { name: 'create', alias: 'c', multiple: true, type: String },
   { name: 'verbose', alias: 'v', type: Boolean },
   { name: 'src', type: String, multiple: true, defaultOption: true },
   { name: 'timeout', alias: 't', type: Number }
@@ -29,9 +31,9 @@ const optionDefinitions = [
  */
 options.register(optionDefinitions);
 const parsedOptions = options.getOptions();
-// console.log(
-//   JSON.stringify(parsedOptions, null, 2)
-// );
+console.log(
+  JSON.stringify(parsedOptions, null, 2)
+);
 
 /**
  * Call command
@@ -40,6 +42,9 @@ let commandToExecute;
 
 if (parsedOptions.hasOwnProperty('init')) {
   commandToExecute = execute_init;
+}
+else if (parsedOptions.hasOwnProperty('create')) {
+  commandToExecute = execute_create;
 }
 
 if (commandToExecute) {

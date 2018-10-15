@@ -8,4 +8,5 @@ echo 'tsc complete'
 echo 'running app:'
 echo ''
 echo ''
-node dist/main.js --init --showpassword
+# node dist/main.js --init --showpassword
+node dist/main.js --create shabazdelete.cls shabazdeletetest.cls

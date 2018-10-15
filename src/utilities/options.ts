@@ -27,9 +27,9 @@ module.exports = (() => {
   }
 
   const validateOptions = (): void => {
-    if (this.options && Object.keys(this.options).length > 1) {
-      throw 'More than one option present, only one allowed';
-    }
+    // if (this.options && Object.keys(this.options).length > 1) {
+    //   throw 'More than one option present, only one allowed';
+    // }
   }
 
   const getOptions = (): object => {

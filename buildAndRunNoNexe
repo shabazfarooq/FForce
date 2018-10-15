@@ -4,4 +4,4 @@ echo 'tsc complete'
 echo 'running app:'
 echo ''
 echo ''
-node dist/main.js --init
+node dist/main.js --init --hidePassword

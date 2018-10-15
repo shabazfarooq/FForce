@@ -10,15 +10,15 @@
 /**
  * Require
  */
-const CommandClass = require('./commands/Command');
-const execute_init = require('./commands/init');
 const options = require('./utilities/options');
+const execute_init = require('./commands/init');
 
 /**
  * Define options
  */
 const optionDefinitions = [
   { name: 'init', alias: 'i', type: Number },
+  { name: 'hidePassword', alias: 'h', type: Boolean },
   { name: 'verbose', alias: 'v', type: Boolean },
   { name: 'src', type: String, multiple: true, defaultOption: true },
   { name: 'timeout', alias: 't', type: Number }
@@ -29,6 +29,9 @@ const optionDefinitions = [
  */
 options.register(optionDefinitions);
 const parsedOptions = options.getOptions();
+// console.log(
+//   JSON.stringify(parsedOptions, null, 2)
+// );
 
 /**
  * Call command
@@ -47,7 +50,3 @@ else {
   console.log('unknown command');
 }
 
-
-// console.log(
-//   JSON.stringify(parsedOptions, null, 2)
-// );

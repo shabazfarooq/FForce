@@ -40,6 +40,7 @@ module.exports = class Init extends Command {
     if (authenticatedCredentials) {
       filesystemUtilities.createBuildPropertiesFile();
       filesystemUtilities.createBuildXmlFile();
+      filesystemUtilities.createPackageXmlFile();
 
       // package.xml
       // Execute Anonymous file

@@ -22,6 +22,10 @@ module.exports = (() => {
     });
   }
 
+  const mkdir = (dirName: string) => {
+    fs.mkdirSync(dirName);
+  }
+
   const createBuildPropertiesFile = async (username: string,
                                            password: string,
                                            serverurl: string) => {
@@ -31,6 +35,12 @@ module.exports = (() => {
 
   const createBuildXmlFile = async () => {
     const textToWrite = constants.getBuildXml();
+    await writeToFile('build.xml', textToWrite);
+  }
+
+  const createPackageXmlFile = async () => {
+    mkdir('src2');
+    const textToWrite = constants.getPackageXml();
     await writeToFile('build.xml', textToWrite);
   }
 

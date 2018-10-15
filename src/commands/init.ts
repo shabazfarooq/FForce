@@ -12,7 +12,7 @@
  * Require(s)
  */
 const Command = require('./Command');
-const readlineSync = require('readline-sync');
+const userInput = require('../utilities/userInput');
 
 /**
  * Define and export module
@@ -33,14 +33,8 @@ module.exports = class Init extends Command {
    * Capture user credentials
    */
   captureAndSetUserCredentials(): void {
-    const hidePassword = super.hasOption('hidePassword');
-    while (!this._username) {
-      this._username = readlineSync.question('Enter username: ');
-    }
-    
-    this._password = readlineSync.question('Enter password: ', { hideEchoBack: hidePassword });
-    this._instanceType = readlineSync.question('Enter instance type(test/login): ');
+    this._username = userInput.askUser('Enter username');
+    this._password = userInput.askUser('Enter password', super.hasOption('hidePassword'));
+    this._instanceType = userInput.askUser('Enter instance type(test/login)');
   }
-
-  // captureUsrename
 }

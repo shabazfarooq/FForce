@@ -28,6 +28,7 @@ module.exports = class Init extends Command {
    */
   start(): void {
     this.captureSetValidateCredentials();
+    this.authenticateCredentials();
   }
 
   /**
@@ -39,12 +40,28 @@ module.exports = class Init extends Command {
 
     this._username = userInput.askUser('Enter username');
     this._password = userInput.askUser('Enter password', hidePassword);
-    this._instanceType = userInput.askUser('Enter instance type(test/login)');
+    this._instanceType = userInput.askUser('Enter instance type(test/login/custom)');
+    if (this._instanceType === 'test' || this._instanceType === 'login') {
+      this._instanceType = 'https://' + this._instanceType + '.salesforce.com';
+    }
 
     // Validate user credentials
     if (!this._username || !this._password || !this._instanceType) {
       console.log('Missing username/password/instance type');
       process.exit(1);
     }
+  }
+
+  /**
+   * Authenticate credentials with SFDC
+   */
+  authenticateCredentials(): boolean {
+    console.log(this._instanceType);
+    // var conn = new jsforce.Connection({
+      // you can change loginUrl to connect to sandbox or prerelease env.
+      // loginUrl : 'https://test.salesforce.com'
+    // });
+
+    return true;
   }
 }

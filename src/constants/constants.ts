@@ -60,7 +60,7 @@ module.exports = (() => {
                       <members>*</members>
                       <name>StaticResource</name>
                   </types>
-                  <version>34.0</version>
+                  <version>40.0</version>
               </Package>
               `;
   }

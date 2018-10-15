@@ -1,7 +1,11 @@
+rm -rf src2
+rm build.properties
+rm build.xml
+
 rm -rf dist/*
 tsc
 echo 'tsc complete'
 echo 'running app:'
 echo ''
 echo ''
-node dist/main.js --init
+node dist/main.js --init --showpassword

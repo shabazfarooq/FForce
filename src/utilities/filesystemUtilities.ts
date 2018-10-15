@@ -11,7 +11,7 @@ module.exports = (() => {
 
   const writeToFile = (filename: string, textToWrite: string) => {
     return new Promise((resolve, reject) => {
-      fs.writeFile('build.properties', textToWrite, function (error: string) {
+      fs.writeFile(filename, textToWrite, function (error: string) {
         if (error) {
           reject(error);
         }
@@ -23,7 +23,9 @@ module.exports = (() => {
   }
 
   const mkdir = (dirName: string) => {
-    fs.mkdirSync(dirName);
+    if (!fs.existsSync(dirName)) {
+      fs.mkdirSync(dirName);
+    }
   }
 
   const createBuildPropertiesFile = async (username: string,
@@ -41,12 +43,23 @@ module.exports = (() => {
   const createPackageXmlFile = async () => {
     mkdir('src2');
     const textToWrite = constants.getPackageXml();
-    await writeToFile('build.xml', textToWrite);
+    await writeToFile('src2/package.xml', textToWrite);
+  }
+
+  const createExecuteAnonFile = async () => {
+    await writeToFile('executeAnonymous.apex', '');
+  }
+
+  const createQueryFile = async () => {
+    await writeToFile('query.soql', '');
   }
 
   return {
     createBuildPropertiesFile,
-    createBuildXmlFile
+    createBuildXmlFile,
+    createPackageXmlFile,
+    createExecuteAnonFile,
+    createQueryFile
   }
 
 })();

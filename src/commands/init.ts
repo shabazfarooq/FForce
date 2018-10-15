@@ -1,13 +1,3 @@
-// console.log('__filename: ' + __filename);
-// console.log('__dirname : ' + __dirname);
-// console.log('process.argv : ' + process.argv);
-
-// todo: create the package.xml file as well as the build.properties file now
-// create credentials and all that create-force-login stuff
-// todo: add a --hidePassword parameter
-
-
-
 /**
  * Require(s)
  */
@@ -22,29 +12,31 @@ const filesystemUtilities = require('../utilities/filesystemUtilities');
 module.exports = class Init extends Command {
   _username: string;
   _password: string;
-  _instanceType: string;
+  _instanceUrl: string;
 
   /**
    * Start
    */
   async start() {
-    
+    try {
+      // Capture user credentials
+      this.captureSetValidateCredentials();
+      
+      // Authenticate with SFDC
+      let authenticatedCredentials = await jsforceUtilities.getAuthenticatedCredentials(
+        this._username,
+        this._password,
+        this._instanceUrl
+      );
 
-    this.captureSetValidateCredentials();
-    let authenticatedCredentials = await jsforceUtilities.getAuthenticatedCredentials(
-      this._username,
-      this._password,
-      this._instanceType
-    );
-
-    if (authenticatedCredentials) {
-      filesystemUtilities.createBuildPropertiesFile();
-      filesystemUtilities.createBuildXmlFile();
-      filesystemUtilities.createPackageXmlFile();
-
-      // package.xml
-      // Execute Anonymous file
-      // Force query file
+      // Create local files if credentials authenticated
+      if (authenticatedCredentials) {
+        this.createLocalFilesAndDirectories();
+      }
+    }
+    catch (error) {
+      console.log('failed..' + error);
+      process.exit(1);
     }
   }
 
@@ -52,23 +44,35 @@ module.exports = class Init extends Command {
    * Capture user credentials
    */
   captureSetValidateCredentials(): void {
-    // Capture user credentials
-    const hidePassword = super.hasOption('showpassword') == false;
+    const hidePassword = super.hasOption('showpassword') === false;
 
+    // Capture user credentials
     this._username = userInput.askUser('Enter username');
     this._password = userInput.askUser('Enter password', hidePassword);
-    this._instanceType = userInput.askUser('Enter instance type(test/login/custom)');
+    this._instanceUrl = userInput.askUser('Enter instance type(test/login/full URL)');
     
     // Finalize instance URL
-    if (this._instanceType === 'test' || this._instanceType === 'login') {
-      this._instanceType = 'https://' + this._instanceType + '.salesforce.com';
+    if (this._instanceUrl === 'test' || this._instanceUrl === 'login') {
+      this._instanceUrl = 'https://' + this._instanceUrl + '.salesforce.com';
     }
 
     // Validate user credentials
-    if (!this._username || !this._password || !this._instanceType) {
-      console.log('Missing username/password/instance type');
-      process.exit(1);
+    if (!this._username || !this._password || !this._instanceUrl) {
+      throw 'Missing username/password/instance type';
     }
+  }
+
+  /**
+   * Create local files and directories
+   */
+  createLocalFilesAndDirectories(): void {
+    filesystemUtilities.createBuildPropertiesFile(
+      this._username, this._password, this._instanceUrl
+    );
+    filesystemUtilities.createBuildXmlFile();
+    filesystemUtilities.createPackageXmlFile();
+    filesystemUtilities.createExecuteAnonFile();
+    filesystemUtilities.createQueryFile();
   }
 
 }

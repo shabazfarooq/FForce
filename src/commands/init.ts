@@ -14,8 +14,7 @@
 const Command = require('./Command');
 const userInput = require('../utilities/userInput');
 const jsforceUtilities = require('../utilities/jsforceUtilities');
-const fs = require('fs');
-
+const filesystemUtilities = require('../utilities/filesystemUtilities');
 
 /**
  * Define and export module
@@ -29,6 +28,8 @@ module.exports = class Init extends Command {
    * Start
    */
   async start() {
+    
+
     this.captureSetValidateCredentials();
     let authenticatedCredentials = await jsforceUtilities.getAuthenticatedCredentials(
       this._username,
@@ -37,13 +38,12 @@ module.exports = class Init extends Command {
     );
 
     if (authenticatedCredentials) {
-          const textToWrite = `org = src
-sf.username = ${this._username}
-sf.password = ${this._password}
-sf.serverurl = ${this._instanceType}
-sf.maxPoll = 20`;
+      filesystemUtilities.createBuildPropertiesFile();
+      filesystemUtilities.createBuildXmlFile();
 
-      await this.createBuildPropertiesFile('build.properties', textToWrite);
+      // package.xml
+      // Execute Anonymous file
+      // Force query file
     }
   }
 
@@ -68,19 +68,6 @@ sf.maxPoll = 20`;
       console.log('Missing username/password/instance type');
       process.exit(1);
     }
-  }
-
-  /**
-   * 
-   */
-  createBuildPropertiesFile(filename: string, textToWrite: string) {
-    return new Promise((resolve, reject) => {
-      fs.writeFile('build.properties', textToWrite, function (err: string) {
-        // if (err: string) throw err;
-        console.log('Replaced!');
-        resolve(1);
-      });
-    });
   }
 
 }

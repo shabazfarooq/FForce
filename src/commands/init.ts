@@ -26,9 +26,10 @@ module.exports = class Init extends Command {
   /**
    * Start
    */
-  start(): void {
+  async start() {
     this.captureSetValidateCredentials();
-    this.authenticateCredentials();
+    let authenticatedCredentials = await this.getAuthenticatedCredentials();
+    console.log(authenticatedCredentials);
   }
 
   /**
@@ -41,6 +42,8 @@ module.exports = class Init extends Command {
     this._username = userInput.askUser('Enter username');
     this._password = userInput.askUser('Enter password', hidePassword);
     this._instanceType = userInput.askUser('Enter instance type(test/login/custom)');
+    
+    // Finalize instance URL
     if (this._instanceType === 'test' || this._instanceType === 'login') {
       this._instanceType = 'https://' + this._instanceType + '.salesforce.com';
     }
@@ -54,14 +57,33 @@ module.exports = class Init extends Command {
 
   /**
    * Authenticate credentials with SFDC
+   // Now you can get the access token and instance URL information.
+   // Save them to establish connection next time.
+   // console.log(conn.accessToken);
+   // console.log(conn.instanceUrl);
+   // // logged in user property
+   // console.log("User ID: " + userInfo.id);
+   // console.log("Org ID: " + userInfo.organizationId);
+   // ...
    */
-  authenticateCredentials(): boolean {
-    console.log(this._instanceType);
-    // var conn = new jsforce.Connection({
-      // you can change loginUrl to connect to sandbox or prerelease env.
-      // loginUrl : 'https://test.salesforce.com'
-    // });
+  getAuthenticatedCredentials() {
+    const conn = new jsforce.Connection({ loginUrl: this._instanceType });
+    
+    return new Promise((resolve, reject) => {
+      conn.login(this._username, this._password,
+        (error: string, userInfo: any) => {
+          if (error) {
+            console.error('ERROR: ' + JSON.stringify(error));
+            process.exit(1);
+          }
 
-    return true;
+          if (userInfo && userInfo.id) {
+            resolve(userInfo);
+          }
+          else {
+            reject(error);
+          }
+        })
+    });
   }
 }

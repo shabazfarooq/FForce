@@ -33,8 +33,10 @@ module.exports = class Init extends Command {
    * Capture user credentials
    */
   captureAndSetUserCredentials(): void {
+    const hidePassword = super.hasOption('showpassword') == false;
+    
     this._username = userInput.askUser('Enter username');
-    this._password = userInput.askUser('Enter password', super.hasOption('hidePassword'));
+    this._password = userInput.askUser('Enter password', hidePassword);
     this._instanceType = userInput.askUser('Enter instance type(test/login)');
   }
 }

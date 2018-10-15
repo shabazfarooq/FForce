@@ -7,6 +7,9 @@ interface CommandInterface {
   hasOption(optionName: string): boolean;
 }
 
+/**
+ * Define and export module
+ */
 module.exports = class Command implements CommandInterface {
   _options: object;
 

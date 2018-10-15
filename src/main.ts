@@ -18,7 +18,7 @@ const execute_init = require('./commands/init');
  */
 const optionDefinitions = [
   { name: 'init', alias: 'i', type: Number },
-  { name: 'hidePassword', alias: 'h', type: Boolean },
+  { name: 'showpassword', alias: 's', type: Boolean },
   { name: 'verbose', alias: 'v', type: Boolean },
   { name: 'src', type: String, multiple: true, defaultOption: true },
   { name: 'timeout', alias: 't', type: Number }

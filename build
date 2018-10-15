@@ -1,4 +1,6 @@
-tsc src/* --outDir dist/
+rm -rf dist/*
+tsc
 echo 'tsc complete'
+echo ''
 echo ''
 nexe --build --input dist/main.js -o bin/fforce

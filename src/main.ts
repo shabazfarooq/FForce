@@ -10,6 +10,7 @@
 /**
  * Require
  */
+const CommandClass = require('./commands/Command');
 const execute_init = require('./commands/init');
 const options = require('./utilities/options');
 
@@ -32,9 +33,20 @@ const parsedOptions = options.getOptions();
 /**
  * Call command
  */
+let commandToExecute;
+
 if (parsedOptions.hasOwnProperty('init')) {
-  execute_init();
+  commandToExecute = execute_init;
 }
+
+if (commandToExecute) {
+  commandToExecute = new commandToExecute(parsedOptions);
+  commandToExecute.start();
+}
+else {
+  console.log('unknown command');
+}
+
 
 // console.log(
 //   JSON.stringify(parsedOptions, null, 2)

@@ -5,8 +5,17 @@
 // todo: create the package.xml file as well as the build.properties file now
 // create credentials and all that create-force-login stuff
 
-let init = () => {
-  console.log('**** executing init ****');
-}
+/**
+ * Require(s)
+ */
+const Command = require('./Command');
 
-module.exports = init;
+/**
+ * Define and export module
+ */
+module.exports = class Init extends Command {
+
+  start(): void {
+    console.log('**** executing init ****');
+  }
+}

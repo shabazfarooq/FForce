@@ -1,3 +1,6 @@
+// todo: use version returned from login
+// todo: use URL (in build properties defined by login response)
+
 /**
  * Require(s)
  */
@@ -10,6 +13,7 @@ const filesystemUtilities = require('../utilities/filesystemUtilities');
  * Define and export module
  */
 module.exports = class Init extends Command {
+  // Declare class properties
   _username: string;
   _password: string;
   _instanceUrl: string;

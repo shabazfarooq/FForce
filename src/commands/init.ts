@@ -14,6 +14,8 @@
 const Command = require('./Command');
 const userInput = require('../utilities/userInput');
 const jsforce = require('jsforce');
+const fs = require('fs');
+
 
 /**
  * Define and export module
@@ -29,7 +31,16 @@ module.exports = class Init extends Command {
   async start() {
     this.captureSetValidateCredentials();
     let authenticatedCredentials = await this.getAuthenticatedCredentials();
-    console.log(authenticatedCredentials);
+
+    if (authenticatedCredentials) {
+          const textToWrite = `org = src
+sf.username = ${this._username}
+sf.password = ${this._password}
+sf.serverurl = ${this._instanceType}
+sf.maxPoll = 20`;
+
+      await this.createBuildPropertiesFile('build.properties', textToWrite);
+    }
   }
 
   /**
@@ -86,4 +97,18 @@ module.exports = class Init extends Command {
         })
     });
   }
+
+  /**
+   * 
+   */
+  createBuildPropertiesFile(filename: string, textToWrite: string) {
+    return new Promise((resolve, reject) => {
+      fs.writeFile('build.properties', textToWrite, function (err: string) {
+        // if (err: string) throw err;
+        console.log('Replaced!');
+        resolve(1);
+      });
+    });
+  }
+
 }

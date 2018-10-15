@@ -13,6 +13,7 @@
  */
 const Command = require('./Command');
 const userInput = require('../utilities/userInput');
+const jsforce = require('jsforce');
 
 /**
  * Define and export module
@@ -26,17 +27,24 @@ module.exports = class Init extends Command {
    * Start
    */
   start(): void {
-    this.captureAndSetUserCredentials();
+    this.captureSetValidateCredentials();
   }
 
   /**
    * Capture user credentials
    */
-  captureAndSetUserCredentials(): void {
+  captureSetValidateCredentials(): void {
+    // Capture user credentials
     const hidePassword = super.hasOption('showpassword') == false;
-    
+
     this._username = userInput.askUser('Enter username');
     this._password = userInput.askUser('Enter password', hidePassword);
     this._instanceType = userInput.askUser('Enter instance type(test/login)');
+
+    // Validate user credentials
+    if (!this._username || !this._password || !this._instanceType) {
+      console.log('Missing username/password/instance type');
+      process.exit(1);
+    }
   }
 }

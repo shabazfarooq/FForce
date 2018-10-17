@@ -1,7 +1,7 @@
 /**
- * Define and export module
+ * Define and export Constants
  */
-module.exports = (() => {
+export default (() => {
 
   const getBuildProperties = (username: string,
                               password: string,

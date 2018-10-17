@@ -1,5 +1,5 @@
 /**
- * Define and export module
+ * Command Interface
  */
 interface CommandInterface {
   _options: object;
@@ -8,7 +8,7 @@ interface CommandInterface {
 }
 
 /**
- * Define and export module
+ * Define and export Command class
  */
 export class Command implements CommandInterface {
   _options: object;

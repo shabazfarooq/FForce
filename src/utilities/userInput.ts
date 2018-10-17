@@ -1,12 +1,12 @@
 /**
- * Require(s)
+ * Import(s) / Require(s)
  */
 const readlineSync = require('readline-sync');
 
 /**
- * Define and export module
+ * Define and export User Input
  */
-module.exports = (() => {
+export default (() => {
 
   const askUser = (question: string, isPassword = false): string => {
     let response;

@@ -1,12 +1,12 @@
 /**
- * Require(s)
+ * Import(s) / Require(s)
  */
 const commandLineArgs = require('command-line-args');
 
 /**
- * Define and export module
+ * Define and export Options
  */
-module.exports = (() => {
+export default (() => {
   let options;
 
   const register = (options: object): void => {

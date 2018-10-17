@@ -1,12 +1,12 @@
 /**
- * Require(s)
+ * Import(s) / Require(s)
  */
 const jsforce = require('jsforce');
 
 /**
- * Define and export module
+ * Define and export Jsforce Utilities
  */
-module.exports = (() => {
+export default (() => {
 
   const getAuthenticatedCredentials = (username: string, password: string, loginUrl: string) => {
     const conn = new jsforce.Connection({ loginUrl });

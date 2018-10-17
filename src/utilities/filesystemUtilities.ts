@@ -1,13 +1,13 @@
 /**
- * Require(s)
+ * Import(s) / Require(s)
  */
 const fs = require('fs');
-const constants = require('../constants/constants');
+import constants from '../constants/constants';
 
 /**
- * Define and export module
+ * Define and export File System Utilities
  */
-module.exports = (() => {
+export default (() => {
 
   const writeToFile = (filename: string, textToWrite: string) => {
     return new Promise((resolve, reject) => {

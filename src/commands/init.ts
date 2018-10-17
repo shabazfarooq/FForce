@@ -2,15 +2,15 @@
 // todo: use URL (in build properties defined by login response)
 
 /**
- * Require(s)
+ * Import(s) / Require(s)
  */
 import { Command } from './Command';
-const userInput = require('../utilities/userInput');
-const jsforceUtilities = require('../utilities/jsforceUtilities');
-const filesystemUtilities = require('../utilities/filesystemUtilities');
+import userInput from '../utilities/userInput';
+import jsforceUtilities from '../utilities/jsforceUtilities';
+import filesystemUtilities from '../utilities/filesystemUtilities';
 
 /**
- * Define and export module
+ * Define and export Init class
  */
 export class Init extends Command {
   // Declare class properties

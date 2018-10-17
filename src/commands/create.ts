@@ -1,11 +1,11 @@
 /**
- * Require(s)
+ * Import(s) / Require(s)
  */
 import { Command } from './Command';
-const jsforceUtilities = require('../utilities/jsforceUtilities');
+import jsforceUtilities from '../utilities/jsforceUtilities';
 
 /**
- * Define and export module
+ * Define and export Create class
  */
 export class Create extends Command {
   

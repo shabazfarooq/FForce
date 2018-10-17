@@ -10,7 +10,7 @@
 /**
  * Require
  */
-const options = require('./utilities/options');
+import options from './utilities/options';
 import { Init } from './commands/init';
 import { Create } from './commands/create';
 

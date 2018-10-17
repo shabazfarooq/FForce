@@ -4,7 +4,7 @@
 /**
  * Require(s)
  */
-const Command = require('./Command');
+import { Command } from './Command';
 const userInput = require('../utilities/userInput');
 const jsforceUtilities = require('../utilities/jsforceUtilities');
 const filesystemUtilities = require('../utilities/filesystemUtilities');
@@ -12,7 +12,7 @@ const filesystemUtilities = require('../utilities/filesystemUtilities');
 /**
  * Define and export module
  */
-module.exports = class Init extends Command {
+export class Init extends Command {
   // Declare class properties
   _username: string;
   _password: string;
@@ -78,5 +78,4 @@ module.exports = class Init extends Command {
     filesystemUtilities.createExecuteAnonFile();
     filesystemUtilities.createQueryFile();
   }
-
 }

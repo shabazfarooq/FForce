@@ -10,7 +10,7 @@ interface CommandInterface {
 /**
  * Define and export module
  */
-module.exports = class Command implements CommandInterface {
+export class Command implements CommandInterface {
   _options: object;
 
   constructor(options: object) {

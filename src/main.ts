@@ -11,8 +11,8 @@
  * Require
  */
 const options = require('./utilities/options');
-const execute_init = require('./commands/init');
-const execute_create = require('./commands/create');
+import { Init } from './commands/init';
+import { Create } from './commands/create';
 
 /**
  * Define options
@@ -36,17 +36,20 @@ console.log(
 );
 
 /**
- * Call command
+ * Determine command
  */
 let commandToExecute;
 
 if (parsedOptions.hasOwnProperty('init')) {
-  commandToExecute = execute_init;
+  commandToExecute = Init;
 }
 else if (parsedOptions.hasOwnProperty('create')) {
-  commandToExecute = execute_create;
+  commandToExecute = Create;
 }
 
+/**
+ * Execute command
+ */
 if (commandToExecute) {
   commandToExecute = new commandToExecute(parsedOptions);
   commandToExecute.start();
@@ -54,4 +57,3 @@ if (commandToExecute) {
 else {
   console.log('unknown command');
 }
-

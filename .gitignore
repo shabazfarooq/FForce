@@ -1,4 +1,8 @@
 node_modules
 dist
 bin
+build.xml
 build.properties
+src2
+executeAnonymous.apex
+query.soql

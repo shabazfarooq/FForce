@@ -1,6 +1,6 @@
-rm -rf src2
-rm build.properties
-rm build.xml
+# rm -rf src2
+# rm build.properties
+# rm build.xml
 
 rm -rf dist/*
 tsc

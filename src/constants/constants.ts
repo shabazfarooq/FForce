@@ -77,7 +77,27 @@ export default (() => {
               `;
   }
 
+  // temporary this should be a class
+  const getApexClass = (name: string) => {
+    return {
+      folder: 'classes',
+      fileName: name + '.cls',
+      fileBody: `public class ${name} {`
+             + '\n\n'
+             + '}',
+      metaxmlFileName: name + '.cls-meta.xml',
+      metaxmlBody: '<?xml version="1.0" encoding="UTF-8"?>'
+               + '\n<ApexClass xmlns="http://soap.sforce.com/2006/04/metadata">'
+               + '\n  <apiVersion>39.0</apiVersion>'
+               + '\n  <status>Active</status>'
+               + '\n</ApexClass>'
+    }
+  }
+
+
+
   return {
+    getApexClass,
     srcFolder,
     buildPropertiesKeys,
     getBuildProperties,

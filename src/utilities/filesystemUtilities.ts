@@ -29,6 +29,10 @@ export default (() => {
     });
   }
 
+  const writeToFileSync = (filename: string, textToWrite: string) => {
+    fs.writeFileSync(filename, textToWrite);
+  }
+
   const mkdir = (dirName: string) => {
     if (!fs.existsSync(dirName)) {
       fs.mkdirSync(dirName);
@@ -92,13 +96,22 @@ export default (() => {
     return parsePropertiesFile(buildProperties);
   }
 
+  // this is temporary, should be removed
+  const createSfdcFile = (sfdcObj: any) => {
+    const path = constants.srcFolder + '/' + sfdcObj.folder;
+    mkdir(path);
+    writeToFileSync(path + '/' + sfdcObj.fileName, sfdcObj.fileBody);
+    writeToFileSync(path + '/' + sfdcObj.metaxmlFileName, sfdcObj.metaxmlBody);
+  }
+
   return {
     createBuildPropertiesFile,
     createBuildXmlFile,
     createPackageXmlFile,
     createExecuteAnonFile,
     createQueryFile,
-    getBuildPropertiesObj
+    getBuildPropertiesObj,
+    createSfdcFile
   }
 
 })();

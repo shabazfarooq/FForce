@@ -3,7 +3,8 @@
  */
 import { Command } from './Command';
 import jsforceUtilities from '../utilities/jsforceUtilities';
-const fs = require('fs');
+import constants from '../constants/constants';
+import filesystemUtilities from '../utilities/filesystemUtilities';
 
 /**
  * Define and export Create class
@@ -39,105 +40,32 @@ export class Create extends Command {
 
 
   createClass() {
-            // var zipStream = fs.createReadStream("./src2/package.xml");
-        // return authenticatedConnection.conn.metadata.deploy(zipStream, {})
-        //   .complete(function(err: any, result: any) {
-        //     if (err) { console.error(err); }
-        //     // console.log('done ? :' + result.done);
-        //     // console.log('success ? : ' + result.true);
-        //     // console.log('state : ' + result.state);
-        //     // console.log('component errors: ' + result.numberComponentErrors);
-        //     // console.log('components deployed: ' + result.numberComponentsDeployed);
-        //     // console.log('tests completed: ' + result.numberTestsCompleted);
-        //   });
+    /**
+     * USE AN INTERFACE+CLASS TO REPRESENT AN SFDC OBJECT
+     */
+    const apexClass = constants.getApexClass('ShabazTest');
 
-
-
-
-
-
-
-
+    // Generate SFDC connection
     const authenticatedConnection = jsforceUtilities.getAuthenticatedConnection();
-
-    var apexBody = [
-      "public class ShabazTest {",
-      "  public string sayHello() {",
-      "    return 'Hello';",
-      "  }",
-      "}"
-    ].join('\n');
 
     // Login
     authenticatedConnection.login
+      // Create Class
       .then((result: any) => {
         console.log('Login Successful');
 
         return authenticatedConnection.conn.tooling
           .sobject('ApexClass')
-          .create({body: apexBody});
+          .create({body: apexClass.fileBody});
       })
+      // Create local files
       .then((result: any) => {
-        console.log(JSON.stringify(result, null, 2));
+        console.log('Created Class in SFDC');
+        filesystemUtilities.createSfdcFile(apexClass);
+        console.log('Created local files');
       })
       .catch((error: any) => {
-        console.log('error: ' + error);
+        console.log('error while creating: ' + apexClass.fileName + '\n' + error);
       });
-
-
-
-
-
-
-
-    // var apexBody = [
-    //   "public class ShabazTest {",
-    //   "  public string sayHello() {",
-    //   "    return 'Hello';",
-    //   "  }",
-    //   "}"
-    // ].join('\n');
-
-    // const authenticatedConnection = jsforceUtilities.getAuthenticatedConnection();
-
-    // // Login
-    // authenticatedConnection.login
-    //   .then((result: any) => {
-    //     console.log('Login Successful');
-
-
-
-
-    //     const retrieveObj = {
-    //         apiVersion: '38.0',
-    //         singlePackage: true,
-    //         unpackaged: {
-    //           types: [{
-    //             'members': ['ShabazTest'],
-    //             'name': 'ApexClass'
-    //           }]
-    //         }
-    //       };
-
-    //     return authenticatedConnection.conn.metadata
-    //       .retrieve(retrieveObj)
-    //       .stream()
-    //       .pipe(fs.createWriteStream("./src_hidden/blah.zip"));
-
-    //     // return authenticatedConnection.conn.tooling.query(`
-    //     //   SELECT Id
-    //     //   FROM ApexClass
-    //     //   WHERE Name = 'ShabazTest'
-    //     //   limit 1
-    //     // `);
-
-    //     // return authenticatedConnection.conn.tooling.sobject('ApexClass').create({body: apexBody});
-    //   })
-    //   .then((result: any) => {
-    //     console.log(JSON.stringify(result, null, 2));
-    //   })
-    //   .catch((error: any) => {
-    //     console.log('error: ' + error);
-    //   });
   }
 }

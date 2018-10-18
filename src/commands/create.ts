@@ -28,9 +28,8 @@ export class Create extends Command {
       // connect to SFDC and push that stuff
 
       // wait for response and then save locally or retrieve and move locally
-      this.createClass();
-
-
+      const classToCreate: string = this._options['create-class'];
+      this.createClass(classToCreate);
     }
     catch (error) {
       console.log('failed..\n' + error);
@@ -39,11 +38,11 @@ export class Create extends Command {
   }
 
 
-  createClass() {
+  createClass(name: string) {
     /**
      * USE AN INTERFACE+CLASS TO REPRESENT AN SFDC OBJECT
      */
-    const apexClass = constants.getApexClass('ShabazTest');
+    const apexClass = constants.getApexClass(name);
 
     // Generate SFDC connection
     const authenticatedConnection = jsforceUtilities.getAuthenticatedConnection();

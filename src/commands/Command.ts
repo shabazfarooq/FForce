@@ -11,7 +11,7 @@ interface CommandInterface {
  * Define and export Command class
  */
 export class Command implements CommandInterface {
-  _options: object;
+  _options: { [index:string] : any };
 
   constructor(options: object) {
     this._options = options;

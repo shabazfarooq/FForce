@@ -20,7 +20,7 @@ import { Create } from './commands/create';
 const optionDefinitions = [
   { name: 'init', alias: 'i', type: Number },
   { name: 'showpassword', alias: 's', type: Boolean },
-  { name: 'create', alias: 'c', multiple: true, type: String },
+  { name: 'create-class', alias: 'c', type: String },
   { name: 'verbose', alias: 'v', type: Boolean },
   { name: 'src', type: String, multiple: true, defaultOption: true },
   { name: 'timeout', alias: 't', type: Number }
@@ -41,7 +41,7 @@ let commandToExecute;
 if (parsedOptions.hasOwnProperty('init')) {
   commandToExecute = Init;
 }
-else if (parsedOptions.hasOwnProperty('create')) {
+else if (parsedOptions.hasOwnProperty('create-class')) {
   commandToExecute = Create;
 }
 

@@ -31,9 +31,7 @@ const optionDefinitions = [
  */
 options.register(optionDefinitions);
 const parsedOptions = options.getOptions();
-console.log(
-  JSON.stringify(parsedOptions, null, 2)
-);
+// console.log(JSON.stringify(parsedOptions, null, 2));
 
 /**
  * Determine command

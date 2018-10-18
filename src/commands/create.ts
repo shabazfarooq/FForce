@@ -3,6 +3,7 @@
  */
 import { Command } from './Command';
 import jsforceUtilities from '../utilities/jsforceUtilities';
+const fs = require('fs');
 
 /**
  * Define and export Create class
@@ -38,6 +39,57 @@ export class Create extends Command {
 
 
   createClass() {
+            // var zipStream = fs.createReadStream("./src2/package.xml");
+        // return authenticatedConnection.conn.metadata.deploy(zipStream, {})
+        //   .complete(function(err: any, result: any) {
+        //     if (err) { console.error(err); }
+        //     // console.log('done ? :' + result.done);
+        //     // console.log('success ? : ' + result.true);
+        //     // console.log('state : ' + result.state);
+        //     // console.log('component errors: ' + result.numberComponentErrors);
+        //     // console.log('components deployed: ' + result.numberComponentsDeployed);
+        //     // console.log('tests completed: ' + result.numberTestsCompleted);
+        //   });
+
+
+
+
+
+
+
+
+    const authenticatedConnection = jsforceUtilities.getAuthenticatedConnection();
+
+    var apexBody = [
+      "public class ShabazTest {",
+      "  public string sayHello() {",
+      "    return 'Hello';",
+      "  }",
+      "}"
+    ].join('\n');
+
+    // Login
+    authenticatedConnection.login
+      .then((result: any) => {
+        console.log('Login Successful');
+
+        return authenticatedConnection.conn.tooling
+          .sobject('ApexClass')
+          .create({body: apexBody});
+      })
+      .then((result: any) => {
+        console.log(JSON.stringify(result, null, 2));
+      })
+      .catch((error: any) => {
+        console.log('error: ' + error);
+      });
+
+
+
+
+
+
+
     // var apexBody = [
     //   "public class ShabazTest {",
     //   "  public string sayHello() {",
@@ -46,29 +98,46 @@ export class Create extends Command {
     //   "}"
     // ].join('\n');
 
-    const authenticatedConnection = jsforceUtilities.getAuthenticatedConnection();
+    // const authenticatedConnection = jsforceUtilities.getAuthenticatedConnection();
 
-    // Login
-    authenticatedConnection.login
-      // Query Test Class Id
-      .then((result: any) => {
-        console.log('Login Successful');
+    // // Login
+    // authenticatedConnection.login
+    //   .then((result: any) => {
+    //     console.log('Login Successful');
 
-        return authenticatedConnection.conn.tooling.query(`
-          SELECT Id
-          FROM ApexClass
-          limit 2
-        `);
 
-        // return conn.tooling.sobject('ApexClass').create({body: apexBody});
-      })
-      // Create Test Class Queue Item
-      .then((result: any) => {
-        console.log('worked???: ' + JSON.stringify(result));
-        // return conn.tooling.create('ApexTestQueueItem', {ApexClassId: result.records[0].Id});
-      })
-      .catch((error: any) => {
-        console.log('error: ' + error);
-      });
+
+
+    //     const retrieveObj = {
+    //         apiVersion: '38.0',
+    //         singlePackage: true,
+    //         unpackaged: {
+    //           types: [{
+    //             'members': ['ShabazTest'],
+    //             'name': 'ApexClass'
+    //           }]
+    //         }
+    //       };
+
+    //     return authenticatedConnection.conn.metadata
+    //       .retrieve(retrieveObj)
+    //       .stream()
+    //       .pipe(fs.createWriteStream("./src_hidden/blah.zip"));
+
+    //     // return authenticatedConnection.conn.tooling.query(`
+    //     //   SELECT Id
+    //     //   FROM ApexClass
+    //     //   WHERE Name = 'ShabazTest'
+    //     //   limit 1
+    //     // `);
+
+    //     // return authenticatedConnection.conn.tooling.sobject('ApexClass').create({body: apexBody});
+    //   })
+    //   .then((result: any) => {
+    //     console.log(JSON.stringify(result, null, 2));
+    //   })
+    //   .catch((error: any) => {
+    //     console.log('error: ' + error);
+    //   });
   }
 }

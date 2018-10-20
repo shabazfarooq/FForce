@@ -6,3 +6,4 @@ build.properties
 src2
 executeAnonymous.apex
 query.soql
+.DS_Store

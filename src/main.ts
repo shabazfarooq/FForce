@@ -20,6 +20,7 @@
 import options from './utilities/options';
 import { Init } from './commands/init';
 import { Create } from './commands/create';
+import { Query } from './commands/query';
 
 /**
  * Define options
@@ -28,6 +29,7 @@ const optionDefinitions = [
   { name: 'init', alias: 'i', type: Number },
   { name: 'showpassword', alias: 's', type: Boolean },
   { name: 'create-class', alias: 'c', type: String },
+  { name: 'query', alias: 'q', type: String },
   { name: 'verbose', alias: 'v', type: Boolean },
   { name: 'src', type: String, multiple: true, defaultOption: true },
   { name: 'timeout', alias: 't', type: Number }
@@ -50,6 +52,9 @@ if (parsedOptions.hasOwnProperty('init')) {
 }
 else if (parsedOptions.hasOwnProperty('create-class')) {
   commandToExecute = Create;
+}
+else if (parsedOptions.hasOwnProperty('query')) {
+  commandToExecute = Query;
 }
 
 /**

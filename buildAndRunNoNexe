@@ -9,4 +9,5 @@ echo 'running app:'
 echo ''
 echo ''
 # node dist/main.js --init --showpassword
-node dist/main.js --create-class ShabazTest
+#node dist/main.js --query 'select id, name, (select id, name from Headcount_Requisitions__r) from requisition__c limit 1'
+node dist/main.js --query 'select id, name from requisition__c limit 10'

@@ -5,6 +5,13 @@
  *  - create message center, where all message text would be written perhaps??
  *  - have commands be constants, actually enumerated types!! haha
  *  - // TBD: Implement pretty errors in options.ts
+
+ * COMMANDS:
+ * -- Query
+ * -- Execute Anonymous
+ * -- Create class (DONE)
+ * -- Save query updateable objects
+ * -- Save PhantomJS files
  */
 
 /**

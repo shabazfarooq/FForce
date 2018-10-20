@@ -82,6 +82,42 @@ export class Query extends Command {
 
     });
 
+    /**
+     * Print
+     */
+    // Print headers
+    console.log('\n');
+
+    const fieldNames = Object.getOwnPropertyNames(fieldNameToLength);
+    let separatingLineLength = 0;
+
+    fieldNames.forEach((fieldName: string) => {
+      const totalFieldLength = fieldNameToLength[fieldName];
+      const fillLength = totalFieldLength - fieldName.length
+      process.stdout.write(fieldName + (' ').repeat(fillLength) + ' | ');
+
+      separatingLineLength += totalFieldLength;
+    });
+
+    // Print separating line
+    const fillerLength = (fieldNames.length * 2) + 1;
+    console.log('\n' + '-'.repeat(separatingLineLength + fillerLength));
+ 
+    // Print field values
+    queryResults.forEach((record: { [index:string] : any }) => {
+      fieldNames.forEach((fieldName: string) => {
+        const fieldValue = record.hasOwnProperty(fieldName) ? record[fieldName] : '';
+        const totalFieldLength = fieldNameToLength[fieldName];
+        const fillLength = totalFieldLength - fieldValue.length;
+        process.stdout.write(fieldValue + (' ').repeat(fillLength) + ' | ');
+      });
+      console.log('');
+    });
+
+
+    // queryResults.forEach((record: { [index:string] : any }) => {
+
+    // });
     // console.log('fieldNameToLength: ' + JSON.stringify(fieldNameToLength, null, 2));
   }
 
